@@ -1,0 +1,2 @@
+# oghamstock
+Inventario app
