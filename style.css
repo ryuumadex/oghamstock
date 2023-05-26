@@ -1,0 +1,168 @@
+/* Estilos generales */
+.container {
+  margin-top: 50px;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}
+
+.list-group {
+  margin-top: 20px;
+}
+
+/* Estilos para cada categoría */
+.categoria {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.categoria .categoria-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.categoria .categoria-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.verduleria {
+  background-color: #67C23A; /* Verde */
+}
+
+.carnes {
+  background-color: #E6A23C; /* Amarillo */
+}
+
+.condimentos {
+  background-color: #D4AA71; /* Marrón */
+}
+
+.lacteos {
+  background-color: #409EFF; /* Azul */
+}
+
+.panaderia {
+  background-color: #F56C6C; /* Rojo */
+}
+
+.postres {
+  background-color: #9C27B0; /* Morado */
+}
+
+.otros {
+  background-color: #909399; /* Gris */
+}
+
+.descartables {
+  background-color: #FFC107; /* Naranja */
+}
+.descartables .categoria-icon::before {
+  content: "\f5da"; /* Icono de bolsa de basura */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+/* Estilos para cada producto */
+.producto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  margin-bottom: 8px; /* Reducir el margen inferior */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.producto .nombre {
+  font-weight: bold;
+}
+
+.producto .cantidad {
+  color: #007bff;
+}
+
+.producto .acciones {
+  display: flex;
+  align-items: center;
+}
+
+.producto .acciones .restar-input {
+  width: 60px;
+  margin-right: 15px;
+}
+
+.producto .acciones .restar-btn {
+  padding: 4px 10px;
+  border: none;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.producto .acciones .eliminar-btn {
+  padding: 4px 10px;
+  border: none;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+}
+
+.producto .acciones .restar-btn:hover,
+.producto .acciones .eliminar-btn:hover {
+  background-color: #c82333;
+}
+
+/* Estilos para bajo stock */
+.cantidad.bajo-stock {
+  color: red;
+}
+
+.cantidad.bajo-stock .exclamacion {
+  color: red;
+}
+
+/* Estilos adicionales para compactar el diseño */
+.col-md-6 {
+  display: flex;
+  flex-direction: column;
+}
+
+#inventario-list {
+  overflow: visible !important;
+}
+
+.captura-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fecha-captura {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 90px;
+  color: #555;
+}
