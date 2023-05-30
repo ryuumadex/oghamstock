@@ -8,10 +8,10 @@ const pedidoList = document.getElementById('pedido-list');
 const enviarPedidoBtn = document.getElementById('enviar-pedido-btn');
 const capturaContainer = document.getElementById('captura-container');
 const contenidoGenerado = document.getElementById('contenido-generado');
+const limpiarInventarioBtn = document.getElementById('limpiar-inventario-btn');
 
 // Datos de inventario y pedido
 let inventario = [];
-let pedido = [];
 
 // Event Listeners
 agregarBtn.addEventListener('click', agregarProducto);
@@ -20,6 +20,10 @@ enviarPedidoBtn.addEventListener('click', () => {
   generarArchivoTexto();
   capturarPantalla();
 });
+limpiarInventarioBtn.addEventListener('click', borrarInventario);
+
+// Cargar inventario guardado
+cargarInventarioGuardado();
 
 // Función para agregar un producto al inventario
 function agregarProducto() {
@@ -52,6 +56,9 @@ function agregarProducto() {
 
   // Limpiar los campos del formulario
   limpiarCampos();
+
+  // Guardar el inventario en el almacenamiento local
+  guardarInventario();
 }
 
 // Función para mostrar el inventario
@@ -214,31 +221,51 @@ function generarArchivoTexto() {
 // Función para capturar la pantalla y generar la imagen
 function capturarPantalla() {
   // Obtener el contenedor de la captura
-  const capturaContainer = document.getElementById('captura-container');
+  const captura = capturaContainer;
 
-  // Crear un elemento "canvas" del tamaño del contenedor
-  const canvas = document.createElement('canvas');
-  canvas.width = capturaContainer.offsetWidth;
-  canvas.height = capturaContainer.offsetHeight;
+  // Establecer el fondo blanco
+  const backgroundColor = captura.style.backgroundColor;
+  captura.style.backgroundColor = 'white';
 
-  // Obtener el contexto del canvas
-  const context = canvas.getContext('2d');
+  // Crear una instancia de html2canvas para capturar el contenido
+  html2canvas(captura).then((canvas) => {
+    // Establecer el fondo original
+    captura.style.backgroundColor = backgroundColor;
 
-  // Dibujar el contenido del contenedor en el canvas
-  context.drawWindow(window, 0, 0, canvas.width, canvas.height, 'rgb(255, 255, 255)');
+    // Obtener la imagen en formato base64
+    const dataURL = canvas.toDataURL();
 
-  // Obtener la imagen codificada en Base64
-  const imageData = canvas.toDataURL();
+    // Crear un elemento de imagen y establecer la imagen generada como fuente
+    const imagen = document.createElement('img');
+    imagen.src = dataURL;
+    imagen.classList.add('captura-imagen');
 
-  // Crear un elemento de imagen y establecer la fuente como la imagen codificada
-  const image = document.createElement('img');
-  image.src = imageData;
+    // Limpiar el contenido anterior
+    contenidoGenerado.innerHTML = '';
 
-  // Limpiar el contenedor de la captura
-  capturaContainer.innerHTML = '';
-
-  // Agregar la imagen al contenedor
-  capturaContainer.appendChild(image);
+    // Agregar la imagen generada al contenedor
+    contenidoGenerado.appendChild(imagen);
+  });
 }
 
+// Función para borrar el inventario
+function borrarInventario() {
+  inventario = [];
+  inventarioList.innerHTML = '';
+  localStorage.removeItem('inventario');
+}
 
+// Función para guardar el inventario en el almacenamiento local
+function guardarInventario() {
+  localStorage.setItem('inventario', JSON.stringify(inventario));
+}
+
+// Función para cargar el inventario guardado del almacenamiento local
+function cargarInventarioGuardado() {
+  const inventarioGuardado = localStorage.getItem('inventario');
+
+  if (inventarioGuardado) {
+    inventario = JSON.parse(inventarioGuardado);
+    mostrarInventario();
+  }
+}
